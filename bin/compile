@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -x
+
+ENV_DIR=${3:-}
+git_clone_url="$(cat $ENV_DIR/GIT_CLONE_URL)"
+git_clone_sha="$(cat $ENV_DIR/GIT_CLONE_SHA)"
+
+git clone $git_clone_url temp_git_clone_dir
+echo "Cloned repository"
+
+git -C temp_git_clone_dir checkout $git_clone_sha
+echo "Checked out GIT_CLONE_SHA"
+
+mkdir $1/.git
+cp -r temp_git_clone_dir/.git/* $1/.git
+echo "Copied .git directory"
+
+# Debug
+git -C $1 status
+
+rm -rf temp_git_clone_dir

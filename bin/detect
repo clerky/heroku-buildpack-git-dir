@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Both GIT_CLONE_URL and GIT_CLONE_SHA must be set
+
+if [ "$GIT_CLONE_URL" == "" ]; then
+  exit 1
+fi
+
+if [ "$GIT_CLONE_SHA" == "" ]; then
+  exit 1
+fi
+
+echo "Git Clone"
+exit 0
